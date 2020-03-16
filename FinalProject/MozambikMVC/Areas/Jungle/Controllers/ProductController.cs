@@ -45,6 +45,7 @@ namespace MozambikMVC.Areas.Jungle.Controllers
                     Name = productmodel.Name,
                     Discount = productmodel.Discount,
                     Price = productmodel.Price,
+                    Description= productmodel.Description,
                     ModelID = productmodel.ModelID
 
                 };

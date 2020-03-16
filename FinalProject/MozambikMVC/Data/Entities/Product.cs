@@ -16,6 +16,7 @@ namespace MozambikMVC.Data.Entities
         public ICollection<Picture> Pictures { get; set; }
         public ICollection<Comment> Comments { get; set; }
         public ICollection<Property> Properties { get; set; }
+        public string Description { get; set; }
         public Model Model { get; set; }
         public int ModelID { get; set; }
 

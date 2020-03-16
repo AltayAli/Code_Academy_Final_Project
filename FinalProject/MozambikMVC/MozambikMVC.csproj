@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\Jungle\Data\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Images\" />
     <Folder Include="Template\" />
   </ItemGroup>

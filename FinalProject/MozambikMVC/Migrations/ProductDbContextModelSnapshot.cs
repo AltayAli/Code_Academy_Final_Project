@@ -302,40 +302,6 @@ namespace MozambikMVC.Migrations
                     b.ToTable("DeliveryInformations");
                 });
 
-            modelBuilder.Entity("Mozambik.Data.Entities.Picture", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("CreatedID")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("ModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("ModifiedID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PhotoUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(200)")
-                        .HasMaxLength(200);
-
-                    b.Property<int>("ProductID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("ProductID");
-
-                    b.ToTable("Pictures");
-                });
-
             modelBuilder.Entity("Mozambik.Data.Entities.Subscriber", b =>
                 {
                     b.Property<int>("ID")
@@ -635,12 +601,49 @@ namespace MozambikMVC.Migrations
                     b.ToTable("Orders");
                 });
 
+            modelBuilder.Entity("MozambikMVC.Data.Entities.Picture", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("CreatedID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PhotoUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.Property<int>("ProductID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ProductID");
+
+                    b.ToTable("Pictures");
+                });
+
             modelBuilder.Entity("MozambikMVC.Data.Entities.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<byte>("Discount")
                         .HasColumnType("tinyint");
@@ -763,15 +766,6 @@ namespace MozambikMVC.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Mozambik.Data.Entities.Picture", b =>
-                {
-                    b.HasOne("MozambikMVC.Data.Entities.Product", "Product")
-                        .WithMany("Pictures")
-                        .HasForeignKey("ProductID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("MozambikMVC.Data.Entities.Category", b =>
                 {
                     b.HasOne("MozambikMVC.Data.Entities.SubMenu", "SubMenu")
@@ -825,6 +819,15 @@ namespace MozambikMVC.Migrations
                     b.HasOne("Mozambik.Data.AppUser", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("MozambikMVC.Data.Entities.Picture", b =>
+                {
+                    b.HasOne("MozambikMVC.Data.Entities.Product", "Product")
+                        .WithMany("Pictures")
+                        .HasForeignKey("ProductID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
