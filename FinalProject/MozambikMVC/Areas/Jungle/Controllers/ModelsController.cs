@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ using MozambikMVC.Data.Entities;
 namespace MozambikMVC.Areas.Jungle.Controllers
 {
     [Area("Jungle")]
+    [Authorize(Roles = "Admin")]
     public class ModelsController : Controller
     {
         private readonly ProductDbContext _context;
@@ -80,6 +82,7 @@ namespace MozambikMVC.Areas.Jungle.Controllers
             }
 
             var model = await _context.Models.FindAsync(id);
+            
             if (model == null)
             {
                 return NotFound();

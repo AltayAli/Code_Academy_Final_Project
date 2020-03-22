@@ -271,37 +271,6 @@ namespace MozambikMVC.Migrations
                     b.ToTable("Abouts");
                 });
 
-            modelBuilder.Entity("Mozambik.Data.Entities.DeliveryInformation", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AddressDetail")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(200)")
-                        .HasMaxLength(200);
-
-                    b.Property<int>("AddressPosX")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AddressPosY")
-                        .HasColumnType("int");
-
-                    b.Property<string>("BaseAddress")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(200)")
-                        .HasMaxLength(200);
-
-                    b.Property<int>("OrderID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("DeliveryInformations");
-                });
-
             modelBuilder.Entity("Mozambik.Data.Entities.Subscriber", b =>
                 {
                     b.Property<int>("ID")
@@ -568,9 +537,6 @@ namespace MozambikMVC.Migrations
                     b.Property<DateTime?>("DeliveredDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DeliveryInformationID")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("OrderDate")
                         .HasColumnType("datetime2");
 
@@ -590,9 +556,6 @@ namespace MozambikMVC.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DeliveryInformationID")
-                        .IsUnique();
 
                     b.HasIndex("ProductId");
 
@@ -642,6 +605,12 @@ namespace MozambikMVC.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("CreatedID")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -649,6 +618,12 @@ namespace MozambikMVC.Migrations
                         .HasColumnType("tinyint");
 
                     b.Property<int>("ModelID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedID")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -804,12 +779,6 @@ namespace MozambikMVC.Migrations
 
             modelBuilder.Entity("MozambikMVC.Data.Entities.Order", b =>
                 {
-                    b.HasOne("Mozambik.Data.Entities.DeliveryInformation", "DeliveryInformation")
-                        .WithOne("Order")
-                        .HasForeignKey("MozambikMVC.Data.Entities.Order", "DeliveryInformationID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("MozambikMVC.Data.Entities.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")

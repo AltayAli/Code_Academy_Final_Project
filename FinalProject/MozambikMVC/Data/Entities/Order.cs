@@ -21,7 +21,5 @@ namespace MozambikMVC.Data.Entities
         public DateTime? CanceledDate { get; set; }
         public bool isDelivered { get; set; }
         public bool isCanceled { get; set; }
-        public DeliveryInformation DeliveryInformation { get; set; }
-        public int DeliveryInformationID { get; set; }
     }
 }

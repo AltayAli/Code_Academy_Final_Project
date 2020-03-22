@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MozambikMVC.Data.Entities
 {
-    public class Product
+    public class Product :BaseEntity
     {
         public int Id { get; set; }
 

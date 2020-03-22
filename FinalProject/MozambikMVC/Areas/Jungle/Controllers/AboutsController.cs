@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,9 +12,11 @@ using Mozambik.Data.Entities;
 namespace MozambikMVC.Areas.Jungle.Controllers
 {
     [Area("Jungle")]
+    [Authorize(Roles ="Admin")]
     public class AboutsController : Controller
     {
         private readonly ProductDbContext _context;
+        
 
         public AboutsController(ProductDbContext context)
         {
@@ -150,5 +153,7 @@ namespace MozambikMVC.Areas.Jungle.Controllers
         {
             return _context.Abouts.Any(e => e.ID == id);
         }
+
+      
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Hosting;
@@ -17,6 +18,7 @@ using System.Threading.Tasks;
 namespace MozambikMVC.Areas.Jungle.Controllers
 {
     [Area("Jungle")]
+    [Authorize(Roles = "Admin")]
     public class ProductController : Controller
     {
         readonly ProductDbContext procuctDb;
@@ -106,6 +108,7 @@ namespace MozambikMVC.Areas.Jungle.Controllers
                 model.Discount = productmodel.Discount;
                 model.Price = productmodel.Price;
                 model.ModelID = productmodel.ModelID;
+                model.ModifiedDate = DateTime.Now;
                 procuctDb.Entry(model).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
 
                 procuctDb.SaveChanges();
@@ -274,7 +277,6 @@ namespace MozambikMVC.Areas.Jungle.Controllers
                 if (file != picture.PhotoUrl)
                     ImageExtension.DeleteImage(file, hostEnvironment);
                 procuctDb.SaveChanges();
-                string fileFull = Path.Combine(hostEnvironment.ContentRootPath, "Images", picture.PhotoUrl);
                 return picture.PhotoUrl;
             }
             return null;

@@ -17,7 +17,6 @@ namespace Mozambik.Data
 
         public DbSet<About> Abouts { get; set; }
         public DbSet<Menu> Menus { get; set; }
-        public DbSet<DeliveryInformation> DeliveryInformations { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Marka> Markas { get; set; }
@@ -39,9 +38,7 @@ namespace Mozambik.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            builder.Entity<DeliveryInformation>().HasOne(x => x.Order).WithOne(x => x.DeliveryInformation).HasForeignKey<Order>(x=>x.DeliveryInformationID);
-
-
+           
          
         }
 

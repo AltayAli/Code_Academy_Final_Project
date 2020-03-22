@@ -30,14 +30,27 @@ namespace MozambikMVC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDistributedMemoryCache();
+            services.ConfigureApplicationCookie(x =>
+            {
+                x.LoginPath = "/jungle/abouts/index";
+                x.AccessDeniedPath = new PathString("/jungle/account/login");
+                x.LogoutPath = new PathString("/jungle/account/login");
+            }
+                      
+            ); 
             services.AddControllersWithViews(options=> {
 
                 options.EnableEndpointRouting = false;
-                var policy = new AuthorizationPolicyBuilder().AddAuthenticationSchemes()
-                                                            .RequireAuthenticatedUser()
-                                                            .Build();
-                
-            });
+                //var policy = new AuthorizationPolicyBuilder().AddAuthenticationSchemes()
+                //                                            .RequireAuthenticatedUser()
+                //                                            .Build();
+            });;
+            services.AddAuthentication();
+            services.AddAuthorization();
+            services.AddSession();
+
+            services.AddDistributedMemoryCache();
             services.AddDbContext<ProductDbContext>(x => x.UseSqlServer(Configuration["Db"]));
             services.AddIdentity<AppUser, IdentityRole<int>>()
                 .AddDefaultTokenProviders()
@@ -66,20 +79,22 @@ namespace MozambikMVC
                 RequestPath = new PathString("/Images"),
                 
             });
-
+            
+            app.UseSession();
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapAreaControllerRoute(
-                    areaName: "Jungle",
-                     name: null,
-                    pattern: "{area:exists}/{controller}/{action}/{id?}");
+                      areaName: "Jungle",
+                       name: "Jungle",
+                      pattern: "{area:exists}/{controller}/{action}/{id?}");
                 endpoints.MapControllerRoute(
-                    name: "default",
+                    name: "default",    
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+               
             });
         }
     }
